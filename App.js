@@ -22,7 +22,7 @@ export default function App(){
         <AuthContext.Provider value={data}>
           <View style={styles.container}>
             {/* ! user ? (<LogStack setUser={setUser}/>) : (<Chat setUser={user} usuario={user}/>)*/ }
-            { ! user ? (<LogStack />) : (<Chat />) }
+            { ! user ? (<MenuChat />) : (<Chat />) }
           </View>
         </AuthContext.Provider>
 
