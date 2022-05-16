@@ -1,5 +1,5 @@
-import React,{useEffect} from "react";
-import {StyleSheet, View,Text,Button,ScrollView,TouchableOpacity} from "react-native";
+import React,{useEffect,useState} from "react";
+import {StyleSheet, View,Text, TouchableOpacity} from "react-native";
 import { getFirestore, onSnapshot } from "firebase/firestore";
 import { doc, setDoc,set,collection,getDocs,query } from "firebase/firestore";
 import { firebaseConfig } from "../utils/firebase";
@@ -9,31 +9,35 @@ import { initializeApp } from 'firebase/app';
 
 import { database } from "../../config/firebase";
 
-import { getDatabase, ref, push, onValue} from "firebase/database"; 
+
+import { map } from "lodash";
 
 export default function MenuChat(){
+    
 
     const app = initializeApp(firebaseConfig);
     //const database = getDatabase(app)
+   
+    const [chats,setChats]= useState([]);
 
-
-    const collRef =  collection(database,'salas');
-    //const docSnap = getDoc(docRef);
+    const collRef = collection(database,'salas');
     const q = query(collRef);
 
-    const unsub = onSnapshot(q, (querySnapshot) =>{
-        querySnapshot.forEach((doc) =>{
-            console.log(doc.data(), "---", doc.id);
-        })
-    } );
+    useEffect(()=>{
+        
+        const unsub = onSnapshot(q, (querySnapshot) =>{
+            querySnapshot.forEach((doc) =>{
+                if(chats.includes(doc.id)){
 
+                }else{
+                    setChats(doc.id);//cambiar el set ak inicio
+                }
+               
+            })
+        } );
 
-    const querySnapshot = getDocs(collRef);
-    console.log(unsub);
-
-    
-
-    
+    },[])
+    console.log(chats);
 
     const crearSala = () =>{
 
@@ -56,8 +60,12 @@ export default function MenuChat(){
         <View>
             <Text> relleno</Text>
             <Text> relleno</Text>
-            <TouchableOpacity onPress={() => crearSala()}>
-                <Text> Create room</Text>
+            <TouchableOpacity >
+                {
+                    chats.map(info =>{
+                        <Text> {info}</Text>
+                    })
+                }
             </TouchableOpacity>
         </View>
     )

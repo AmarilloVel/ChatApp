@@ -23,7 +23,8 @@ export default function Chat(){
   const authUser = useContext(AuthContext);
   console.log(authUser.useUser[0]);
   const usuario = authUser.useUser[0];
-  const {setUser} = authUser.useUser[1]
+  const {setUser} = authUser.useUser[1];
+  
 
 
   //base de datos
@@ -34,6 +35,7 @@ export default function Chat(){
 
   const [mensajes,setMensajes] = useState([]);
   const chatScrollRef = useRef();
+  
 
   //console.log(usuario);
   //Use Effect para guardar los msj
