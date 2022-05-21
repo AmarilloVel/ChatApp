@@ -7,10 +7,14 @@ import Register from "../screens/Register";
 
 
 
+
 const Stack = createNativeStackNavigator()
+
 
 const LogStack = (props)=>{
 
+  
+    
     const {setUser} = props;
    
     //console.log(props);

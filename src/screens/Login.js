@@ -15,7 +15,7 @@ import useAuth from "../hooks/useAuth";
 
 
 
-export default function Login(){
+export default function Login({navigation}){
 
     //contexto del usuario
     const authUser = useContext(AuthContext);
@@ -30,11 +30,15 @@ export default function Login(){
     const auth = getAuth(app);
     
     //navigation-stack funcion
-    const navigation = useNavigation();
+    /*const navigation = useNavigation();*/
     
     const creatCuenta = ()=>{
-        signInWithEmailAndPassword(auth, nombre, "231214")
+        createUserWithEmailAndPassword(auth, nombre, "231214")
         .then((crendenciales)=>{
+            navigation.reset({
+                index: 0,
+                routes: [{name: 'Chat'}],
+              });
             console.log("cuenta Creada");        
             //const user = crendenciales.user;
             

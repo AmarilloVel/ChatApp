@@ -13,17 +13,23 @@ import moment from "moment";
 import { initializeApp } from 'firebase/app';
 import {firebaseConfig} from "../utils/firebase";
 import { getDatabase, ref, push, onValue} from "firebase/database"; 
+import { getAuth } from 'firebase/auth';
 
 
 import AuthContext from "../utils/authContext";
 
 
 export default function Chat(){
+  
+  const auth = getAuth();
+  const email = auth.currentUser.email;
 
   const authUser = useContext(AuthContext);
-  console.log(authUser.useUser[0]);
+  console.log(authUser.useUser);
+
   const usuario = authUser.useUser[0];
-  const {setUser} = authUser.useUser[1];
+  const setUser = authUser.useUser[1];
+  setUser(email);
   
 
 
